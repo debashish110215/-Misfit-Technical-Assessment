@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Misfit.CORE.Domains;
 using Misfit.CORE.ViewModels;
 using Misfit.SERVICE.Services;
 
@@ -26,7 +27,12 @@ namespace Misfit.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(new Response<bool>()
+                {
+                    Success = false,
+                    Data = false,
+                    ErrorMessage = "Model is not valid"
+                });
             }
             return Ok(calculationService.CalculateSum(model));
         }
